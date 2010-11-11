@@ -1,0 +1,13 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>flash</title>
+<style>body{margin:0;padding:0;width:100%}</style>
+</head>
+<body></body>
+<script>
+var index = fff = 16777215;
+var body = document.getElementsByTagName('body')[0];
+setInterval(function(){body.style.backgroundColor = '#'+'000000'.concat(index.toString(16)).substr(-6);index=Math.floor(Math.random()*fff + index)%fff;},50)
+</script></html>
