@@ -27,6 +27,7 @@ function notify_error(XMLHttpRequest, textStatus, errorThrown){
 }
 var query = "?page=1&rpp=100&q=bachpan";
 var dplist = [];
+var delay = maxdelay = 1800;
 function load_tweets(){
 
 	function render_tweets(data){
@@ -37,15 +38,19 @@ function load_tweets(){
                 var pic = $("<a></a>").attr({'target':'twitteruser', 'href': 'http://twitter.com/'+this.from_user, 'title': this.from_user}).addClass('pic');
                 pic.html("<img src='"+this.profile_image_url+"' alt='"+this.from_user+"'>");
                 var li = $("<li></li>").append(pic);
+                li.css('opacity',0)
                 $("#dplist").prepend(li);
+                li.fadeTo(delay,1);
+                delay=(delay+200)%maxdelay;
             }
         });
         $("#error-notification").hide();
-        $(".loading","#dplist").remove();
+        $(".loading").remove();
     }
 
-    var li = $("<li></li>").html("<img width='48' height='48' alt='loading' src='ajax-loader.gif' />").addClass('loading');
+    var li = $("<li></li>").html("<img width='48' height='48' alt='loading' src='ajax-loader.gif' />").addClass('loading').css('opacity',0);
     $("#dplist").prepend(li);
+    li.fadeTo(maxdelay,1);
 	$.ajax({
         url: 'http://search.twitter.com/search.json'+query+'&show_user=true&result_type=recent&callback=?',
         dataType: 'jsonp',
