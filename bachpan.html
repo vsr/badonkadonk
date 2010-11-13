@@ -31,7 +31,12 @@ var delay = maxdelay = 1800;
 function load_tweets(){
 
 	function render_tweets(data){
-        query = data.next_page;
+        if(data.next_page){
+            query = data.next_page;
+        }
+        else{
+            query = data.refresh_url;
+        }
         $.each(data.results, function(){
             if( !(this.from_user in dplist) ){
                 dplist[this.from_user] = this.profile_image_url;
