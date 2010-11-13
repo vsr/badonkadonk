@@ -45,7 +45,7 @@ function load_tweets(){
     }
 
     var li = $("<li></li>").html("<img width='48' height='48' alt='loading' src='ajax-loader.gif' />").addClass('loading');
-    $("#dplist").append(li);
+    $("#dplist").prepend(li);
 	$.ajax({
         url: 'http://search.twitter.com/search.json'+query+'&show_user=true&result_type=recent&callback=?',
         dataType: 'jsonp',
