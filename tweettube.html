@@ -23,8 +23,8 @@ input[type=submit]{cursor:pointer;background-color:#E1E1E1;}
 #tweetlist li .date{font-size:0.7em;padding-left:1em;}
 #tubebar{width:529px;float:left;}
 #youtube {margin-top:20px;}
-#youtube object{margin:0 44px;min-height:356px;}
-#tubelist{min-height:200px;overflow:scroll}
+#youtube object,#ytplayer{margin:0 44px;min-height:356px;}
+#tubelist{height:200px;overflow:scroll}
 #tubelist li{border:1px solid #AAA;display:block;list-style-type:none;padding:3px;overflow:hidden;cursor:pointer;}
 #tubelist li.selected{border:1px solid #FF0000;}
 #tubelist li img{float:left;}
@@ -35,13 +35,14 @@ header h1 a{color:#555;text-decoration:none;}
 header p{display:inline;
 font-size:0.9em;
 font-style:italic;}
+.help{font-size:0.9em;text-align:right;color:#666}
 </style>
 <!--[if IE]><script>var e="abbr,article,aside,audio,canvas,datalist,details,figure,footer,header,hgroup,mark,menu,meter,nav,output,progress,section,time,video".split(',');var i=e.length;while(i--){document.createElement(e[i]);}</script><![endif]-->
 </head>
 <body>
 <div id="ow">
     <div id="tweetbar">
-        <form id="userinput"><label>username</label><input id="username" value="music" type="text" ><input value="Get tweets" type="submit" ></form>
+        <form id="userinput"><label>username</label><input id="username" value="music" type="text" ><input value="Get tweets" type="submit" ><p class='help'>click on the tweets to get videos.</p></form>
         <ul id="tweetlist"></ul>
     </div>
     <div id="tubebar">
