@@ -85,7 +85,7 @@ function define(){
 $(function(){
     $("#word").keyup(function(){
         clearTimeout(delay_timeout)
-        delay_timeout = setTimeout( define, 50);
+        delay_timeout = setTimeout( define, 800);
     });
     var hash = window.location.hash;
     if(hash!=""){
