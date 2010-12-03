@@ -65,8 +65,8 @@ function OnLoad() {
             var hash_arr = h.split("/");
             var left = hash_arr[0]?hash_arr[0]:"";
             var right = hash_arr[1]?hash_arr[1]:"";
-            left = left.replace(/_/g," ");
-            right = right.replace(/_/g," ");
+            left = left.trim().replace(/_/g," ");
+            right = right.trim().replace(/_/g," ");
             leftSearchControl.execute(left);
             rightSearchControl.execute(right);          
             $("header h1 a.main").html("#sameGuy");
@@ -108,8 +108,8 @@ function OnLoad() {
 
 
     $("input.gsc-search-button,.gsc-clear-button").live("click",function(){
-        var left = $("#left input.gsc-input").val().replace(/ /g,"_");
-        var right = $("#right input.gsc-input").val().replace(/ /g,"_");
+        var left = $("#left input.gsc-input").val().trim().replace(/ /g,"_");
+        var right = $("#right input.gsc-input").val().trim().replace(/ /g,"_");
         window.location.hash = "#"+left+"/"+right;
         $("header h1 a.main").html("#sameGuy");
     });
@@ -118,6 +118,8 @@ function OnLoad() {
     $("#examples li a:even").addClass("even");
     run_sameguy();
 }
+
+if(typeof(String.prototype.trim)===undefined){String.prototype.trim=function(){return String(this).replace(/^\s+|\s+$/g, '');};}
 
 var image_to_load = null;
 var load_timeout = null;
