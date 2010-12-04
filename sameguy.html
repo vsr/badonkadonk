@@ -45,6 +45,15 @@ function OnLoad() {
     options = new google.search.SearcherOptions(),
     drawOptions = new google.search.DrawOptions();
 
+    lImageSearch.setRestriction(
+      google.search.ImageSearch.RESTRICT_IMAGETYPE,
+      google.search.ImageSearch.IMAGETYPE_FACES
+    );
+    rImageSearch.setRestriction(
+      google.search.ImageSearch.RESTRICT_IMAGETYPE,
+      google.search.ImageSearch.IMAGETYPE_FACES
+    );
+
     options.setExpandMode(google.search.SearchControl.EXPAND_MODE_OPEN);
     drawOptions.setDrawMode(google.search.SearchControl.DRAW_MODE_TABBED);
 
