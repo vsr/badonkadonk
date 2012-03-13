@@ -1,0 +1,87 @@
+<!doctype html>
+<html>
+<head>
+<title>jobs.hasgeek Browse</title>
+<style>
+html {}
+body { margin: 0px; padding: 0px; background-color: #f8f8f8; color: #3e3e3e;
+      font-family: sans-serif; }
+h1 { text-align: center; }
+.desc {text-align: center;}
+#results { width: 888px; margin: 0 auto; overflow: hidden; }
+#results thead input { width: 10em; }
+#results_wrapper { width: 888px; margin: 0 auto; font-size: 0.8em; }
+</style>
+</head>
+<body>
+<h1>jobs.hasgeek browse</h1>
+<p class="desc">A table view of Job postings listed on <a href="http://jobs.hasgeek.com/">jobs.hasgeek.com</a>.</p>
+<table id="results">
+    <thead>
+    <tr>
+        <th>Location <input/></th>
+        <th>Headline<input/></th>
+        <th>Company<input/></th>
+        <th>Date<input/></th>
+        <th>Link<input/></th>
+    </tr>
+    </thead>
+    <tbody>
+    </tbody>
+</table>
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script src="//ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.0/jquery.dataTables.min.js"></script>
+<link rel="stylesheet" href="//ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.0/css/jquery.dataTables.css" />
+<script>
+$(function(){
+
+    var jobs_url = "http://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20html%20where%20url%3D%22http%3A%2F%2Fjobs.hasgeek.com%22%20and%20xpath%3D'%2F%2Ful%5B%40id%3D%22stickie-area%22%5D%2Fli'&format=json&diagnostics=false?",
+        $tbody = $("#results tbody");
+
+
+function drawTable(resp){
+    console.log(resp);
+    $.each(resp.query.results.li, function(index, item){
+        if(item.id==="newpost"){ return; };
+        var location='', headline='', company='', date='',
+            jlink='<td><a href="http://jobs.hasgeek.com'+item.a.href+'">'+item.a.href+'</a></td>',
+            c=index-1, tr;
+        $.each(item.a.span,function(i,detail){
+            if(detail.class==='location') { location=$("<td></td>",{text:detail.content}); return; }
+            if(detail.class==='headline') { headline=$("<td></td>",{text:detail.content}); return; }
+            if(detail.class==='date') { date=$("<td></td>",{text:detail.content}); return; }
+            if(detail.class==='company') { company=$("<td></td>",{text:detail.content}); return; }
+        });
+        tr = $("<tr></tr>").append(location, headline, company, date, jlink);
+        $tbody.append(tr);
+        console.log('data added', index, location, headline);
+    });
+    var jobtable = $("#results").dataTable({
+            //"bPaginate": false,
+            "iDisplayLength": 100,
+            "bFilter": true,
+            "sPaginationType": "full_numbers",
+            "bAutoWidth": false
+        });
+    $("thead input").keyup( function () {
+        /* Filter on the column (the index) of this element */
+        jobtable.fnFilter( this.value, $("thead input").index(this) );
+    } );
+}
+
+    (function getJobs() {
+        $.ajax({
+            url: jobs_url,
+            method: "GET",
+            dataType: 'json',
+            success: drawTable
+        });
+    }());
+
+});
+</script>
+<br>
+
+</body>
+</html>
