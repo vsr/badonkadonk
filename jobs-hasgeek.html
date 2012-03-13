@@ -8,6 +8,7 @@ body { margin: 0px; padding: 0px; background-color: #f8f8f8; color: #3e3e3e;
       font-family: sans-serif; }
 h1 { text-align: center; }
 .desc {text-align: center;}
+.notify {text-align: center;}
 #results { width: 888px; margin: 0 auto; overflow: hidden; }
 #results thead input { width: 10em; }
 #results_wrapper { width: 888px; margin: 0 auto; font-size: 0.8em; }
@@ -16,6 +17,7 @@ h1 { text-align: center; }
 <body>
 <h1>jobs.hasgeek browse</h1>
 <p class="desc">A table view of Job postings listed on <a href="http://jobs.hasgeek.com/">jobs.hasgeek.com</a>.</p>
+<p class="notify"></p>
 <table id="results">
     <thead>
     <tr>
@@ -41,12 +43,12 @@ $(function(){
 
 
 function drawTable(resp){
-    console.log(resp);
     $.each(resp.query.results.li, function(index, item){
         if(item.id==="newpost"){ return; };
         var location='', headline='', company='', date='',
             jlink='<td><a href="http://jobs.hasgeek.com'+item.a.href+'">'+item.a.href+'</a></td>',
-            c=index-1, tr;
+            c=index-1,
+            tr;
         $.each(item.a.span,function(i,detail){
             if(detail.class==='location') { location=$("<td></td>",{text:detail.content}); return; }
             if(detail.class==='headline') { headline=$("<td></td>",{text:detail.content}); return; }
@@ -55,7 +57,6 @@ function drawTable(resp){
         });
         tr = $("<tr></tr>").append(location, headline, company, date, jlink);
         $tbody.append(tr);
-        console.log('data added', index, location, headline);
     });
     var jobtable = $("#results").dataTable({
             //"bPaginate": false,
@@ -65,9 +66,9 @@ function drawTable(resp){
             "bAutoWidth": false
         });
     $("thead input").keyup( function () {
-        /* Filter on the column (the index) of this element */
         jobtable.fnFilter( this.value, $("thead input").index(this) );
     } );
+    $(".notify").text("").hide();
 }
 
     (function getJobs() {
@@ -77,6 +78,7 @@ function drawTable(resp){
             dataType: 'json',
             success: drawTable
         });
+        $(".notify").text("loading..");
     }());
 
 });
