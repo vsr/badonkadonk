@@ -12,6 +12,7 @@ h1 { text-align: center; }
 #results { width: 888px; margin: 0 auto; overflow: hidden; }
 #results thead input { width: 10em; }
 #results_wrapper { width: 888px; margin: 0 auto; font-size: 0.8em; }
+input.hide { display: none; }
 </style>
 </head>
 <body>
@@ -21,6 +22,7 @@ h1 { text-align: center; }
 <table id="results">
     <thead>
     <tr>
+        <th>Sl.No <input class="hide"/></th>
         <th>Location <input/></th>
         <th>Headline<input/></th>
         <th>Company<input/></th>
@@ -47,6 +49,7 @@ function drawTable(resp){
         if(item.id==="newpost"){ return; };
         var location='', headline='', company='', date='',
             jlink='<td><a href="http://jobs.hasgeek.com'+item.a.href+'">'+item.a.href+'</a></td>',
+            sl = $("<td>"+index+"</td>"),
             c=index-1,
             tr;
         $.each(item.a.span,function(i,detail){
@@ -55,7 +58,7 @@ function drawTable(resp){
             if(detail.class==='date') { date=$("<td></td>",{text:detail.content}); return; }
             if(detail.class==='company') { company=$("<td></td>",{text:detail.content}); return; }
         });
-        tr = $("<tr></tr>").append(location, headline, company, date, jlink);
+        tr = $("<tr></tr>").append(sl, location, headline, company, date, jlink);
         $tbody.append(tr);
     });
     var jobtable = $("#results").dataTable({
