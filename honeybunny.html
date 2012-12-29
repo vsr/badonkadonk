@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset=utf-8 />
+<title>Honey Bunny!</title>
+</head>
+<body>
+  <audio id="hb" src="http://www.ideacellular.com/ISC/idea/honey-bunny%20full%20track.mp3" type='audio/mpeg; codecs="mp3"' autoplay controls></audio>
+
+  <script>
+    if(!hb.canPlayType('audio/mpeg')){
+      var e = document.createElement('div');
+      e.innerHTML = '<object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" width="400" height="27" ><param name="movie" value="http://www.google.com/reader/ui/3523697345-audio-player.swf" /> <param name="FlashVars" value="audioUrl=http://www.ideacellular.com/ISC/idea/honey-bunny%20full%20track.mp3&autoPlay=true"> <param name="quality" value="high" /> <!--[if !IE]>-->   <object type="application/x-shockwave-flash" data="http://www.google.com/reader/ui/3523697345-audio-player.swf" width="400" height="27"> <param name="movie" value="http://www.google.com/reader/ui/3523697345-audio-player.swf" /> <param name="FlashVars" value="audioUrl=http://www.ideacellular.com/ISC/idea/honey-bunny%20full%20track.mp3&autoPlay=true">  <param name="quality" value="high" /> <!--<![endif]--> <a href="http://www.adobe.com/go/getflash">    <img src="http://www.adobe.com/images/shared/download_buttons/get_flash_player.gif" alt="Get Adobe Flash player" />    </a> <!--[if !IE]>-->  </object> <!--<![endif]--> </object>';
+      document.body.appendChild(e);
+    }
+  </script>
+    <p style="font-size: 0.7em">Song from <a href="http://www.ideacellular.com/wps/wcm/connect/home/idea/honey_bunny">Idea website</a></p>
+</body>
+</html>
